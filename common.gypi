@@ -88,6 +88,23 @@
 
     ##### end V8 defaults #####
 
+    # When building native modules using 'npm install' with the system npm,
+    # node-gyp uses the `process.config` of the system npm to fill config.gypi.
+    # If the system npm is not as recent as Electron's node headers, which is
+    # likely, these variables will be missing from that config.gypi, and as a
+    # result, node-gyp will fail when building the native module with an error
+    # like:
+    #
+    #  gyp: name 'enable_lto' is not defined while evaluating condition
+    #  'enable_lto=="true"' in binding.gyp while trying to load binding.gyp
+    #
+    # We set default values here to avoid that error message, even though these
+    # aren't technically accurate, because most native modules don't depend on
+    # these values being accurate.
+    'build_v8_with_gn': 'false',
+    'enable_lto%': 'false',
+    'llvm_version': '0.0',
+
     'conditions': [
       ['OS == "win"', {
         'os_posix': 0,
