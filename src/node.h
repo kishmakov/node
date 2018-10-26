@@ -133,6 +133,7 @@ struct SnapshotData;
 
 namespace tracing {
 
+class Agent;
 class TracingController;
 
 }
@@ -831,6 +832,8 @@ NODE_EXTERN void GetNodeReport(Environment* env,
 // instance, if one exists.
 NODE_EXTERN MultiIsolatePlatform* GetMultiIsolatePlatform(Environment* env);
 NODE_EXTERN MultiIsolatePlatform* GetMultiIsolatePlatform(IsolateData* env);
+
+NODE_EXTERN node::tracing::Agent* CreateAgent();
 
 NODE_DEPRECATED("Use MultiIsolatePlatform::Create() instead",
     NODE_EXTERN MultiIsolatePlatform* CreatePlatform(
