@@ -773,6 +773,7 @@ void BuiltinLoader::RegisterExternalReferences(
   registry->Register(GetNatives);
 
   RegisterExternalReferencesForInternalizedBuiltinCode(registry);
+  EmbedderRegisterExternalReferencesForInternalizedBuiltinCode(registry);
 }
 
 }  // namespace builtins
