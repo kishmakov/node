@@ -35,6 +35,7 @@ using v8::Value;
 BuiltinLoader::BuiltinLoader()
     : config_(GetConfig()), code_cache_(std::make_shared<BuiltinCodeCache>()) {
   LoadJavaScriptSource();
+  LoadEmbedderJavaScriptSource();
 #ifdef NODE_SHARED_BUILTIN_CJS_MODULE_LEXER_LEXER_PATH
   AddExternalizedBuiltin(
       "internal/deps/cjs-module-lexer/lexer",
