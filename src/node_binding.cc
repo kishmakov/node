@@ -4,6 +4,7 @@
 #include "node_builtins.h"
 #include "node_errors.h"
 #include "node_external_reference.h"
+#include "node_process.h"
 #include "util.h"
 
 #include <string>
@@ -483,7 +484,12 @@ void DLOpen(const FunctionCallbackInfo<Value>& args) {
       if (mp->nm_context_register_func == nullptr) {
         if (env->force_context_aware()) {
           dlib->Close();
-          THROW_ERR_NON_CONTEXT_AWARE_DISABLED(env);
+          char errmsg[1024];
+          snprintf(errmsg,
+                   sizeof(errmsg),
+                   "Loading non-context-aware native module in renderer: '%s'. See https://github.com/electron/electron/issues/18397.",
+                   *filename);
+          env->ThrowError(errmsg);
           return false;
         }
       }
