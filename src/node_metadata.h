@@ -6,7 +6,7 @@
 #include <string>
 #include "node_version.h"
 
-#if HAVE_OPENSSL
+#if 0
 #include <openssl/crypto.h>
 #if NODE_OPENSSL_HAS_QUIC
 #include <openssl/quic.h>

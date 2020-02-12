@@ -6,7 +6,7 @@
 #include "node_external_reference.h"
 #include "node_internals.h"
 #include "node_sea.h"
-#if HAVE_OPENSSL
+#if HAVE_OPENSSL && !defined(OPENSSL_IS_BORINGSSL)
 #include "openssl/opensslv.h"
 #endif
 

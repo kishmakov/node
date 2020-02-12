@@ -49,7 +49,7 @@
 #include "uv.h"
 #include "v8.h"
 
-#if HAVE_OPENSSL
+#if HAVE_OPENSSL && OPENSSL_VERSION_MAJOR >= 3
 #include <openssl/evp.h>
 #endif
 
@@ -1051,7 +1051,7 @@ class Environment : public MemoryRetainer {
     kExitInfoFieldCount
   };
 
-#if HAVE_OPENSSL
+#if HAVE_OPENSSL// && !defined(OPENSSL_IS_BORINGSSL)
 #if OPENSSL_VERSION_MAJOR >= 3
   // We declare another alias here to avoid having to include crypto_util.h
   using EVPMDPointer = DeleteFnPtr<EVP_MD, EVP_MD_free>;

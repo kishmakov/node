@@ -11,7 +11,7 @@
 #include "node_mutex.h"
 #include "util.h"
 
-#if HAVE_OPENSSL
+#if 0
 #include "openssl/opensslv.h"
 #endif
 

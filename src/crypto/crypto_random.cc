@@ -140,7 +140,7 @@ Maybe<bool> RandomPrimeTraits::AdditionalConfig(
 
   params->bits = bits;
   params->safe = safe;
-  params->prime.reset(BN_secure_new());
+  params->prime.reset(BN_new());
   if (!params->prime) {
     THROW_ERR_CRYPTO_OPERATION_FAILED(env, "could not generate prime");
     return Nothing<bool>();

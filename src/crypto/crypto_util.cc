@@ -518,24 +518,15 @@ Maybe<void> Decorate(Environment* env,
     V(BIO)                                                                    \
     V(PKCS7)                                                                  \
     V(X509V3)                                                                 \
-    V(PKCS12)                                                                 \
     V(RAND)                                                                   \
-    V(DSO)                                                                    \
     V(ENGINE)                                                                 \
     V(OCSP)                                                                   \
     V(UI)                                                                     \
     V(COMP)                                                                   \
     V(ECDSA)                                                                  \
     V(ECDH)                                                                   \
-    V(OSSL_STORE)                                                             \
-    V(FIPS)                                                                   \
-    V(CMS)                                                                    \
-    V(TS)                                                                     \
     V(HMAC)                                                                   \
-    V(CT)                                                                     \
-    V(ASYNC)                                                                  \
-    V(KDF)                                                                    \
-    V(SM2)                                                                    \
+    V(HKDF)                                                                    \
     V(USER)                                                                   \
 
 #define V(name) case ERR_LIB_##name: lib = #name "_"; break;
@@ -716,7 +707,7 @@ void SecureBuffer(const FunctionCallbackInfo<Value>& args) {
   CHECK(args[0]->IsUint32());
   Environment* env = Environment::GetCurrent(args);
   uint32_t len = args[0].As<Uint32>()->Value();
-  void* data = OPENSSL_secure_zalloc(len);
+  void* data = OPENSSL_malloc(len);
   if (data == nullptr) {
     // There's no memory available for the allocation.
     // Return nothing.
@@ -727,7 +718,7 @@ void SecureBuffer(const FunctionCallbackInfo<Value>& args) {
           data,
           len,
           [](void* data, size_t len, void* deleter_data) {
-            OPENSSL_secure_clear_free(data, len);
+            OPENSSL_clear_free(data, len);
           },
           data);
   Local<ArrayBuffer> buffer = ArrayBuffer::New(env->isolate(), store);
@@ -735,10 +726,12 @@ void SecureBuffer(const FunctionCallbackInfo<Value>& args) {
 }
 
 void SecureHeapUsed(const FunctionCallbackInfo<Value>& args) {
+#ifndef OPENSSL_IS_BORINGSSL
   Environment* env = Environment::GetCurrent(args);
   if (CRYPTO_secure_malloc_initialized())
     args.GetReturnValue().Set(
         BigInt::New(env->isolate(), CRYPTO_secure_used()));
+#endif
 }
 }  // namespace
 

@@ -1239,6 +1239,7 @@ void KeyObjectHandle::GetAsymmetricKeyType(
 }
 
 bool KeyObjectHandle::CheckEcKeyData() const {
+#ifndef OPENSSL_IS_BORINGSSL
   MarkPopErrorOnReturn mark_pop_error_on_return;
 
   const ManagedEVPPKey& key = data_->GetAsymmetricKey();
@@ -1256,6 +1257,9 @@ bool KeyObjectHandle::CheckEcKeyData() const {
   return EVP_PKEY_public_check_quick(ctx.get()) == 1;
 #else
   return EVP_PKEY_public_check(ctx.get()) == 1;
+#endif
+#else
+  return true;
 #endif
 }
 
