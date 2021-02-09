@@ -88,6 +88,7 @@ test('rsa_public.pem', 'rsa_private.pem', 'sha256', false,
 // ED25519
 test('ed25519_public.pem', 'ed25519_private.pem', undefined, true);
 // ED448
+/*
 test('ed448_public.pem', 'ed448_private.pem', undefined, true);
 
 // ECDSA w/ der signature encoding
@@ -109,6 +110,7 @@ test('dsa_public.pem', 'dsa_private.pem', 'sha256',
 // DSA w/ ieee-p1363 signature encoding
 test('dsa_public.pem', 'dsa_private.pem', 'sha256', false,
      { dsaEncoding: 'ieee-p1363' });
+*/
 
 // Test Parallel Execution w/ KeyObject is threadsafe in openssl3
 {

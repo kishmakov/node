@@ -105,6 +105,7 @@ const { subtle } = globalThis.crypto;
   test('hello world').then(common.mustCall());
 }
 
+/*
 // Test Sign/Verify Ed25519
 {
   async function test(data) {
@@ -144,3 +145,4 @@ const { subtle } = globalThis.crypto;
 
   test('hello world').then(common.mustCall());
 }
+*/

@@ -22,8 +22,8 @@ const TEST_CASES = {
 };
 
 if (!common.hasFipsCrypto) {
-  TEST_CASES.Cipher = ['aes192', 'secret'];
-  TEST_CASES.Decipher = ['aes192', 'secret'];
+  TEST_CASES.Cipher = ['aes-192-cbc', 'secret'];
+  TEST_CASES.Decipher = ['aes-192-cbc', 'secret'];
   TEST_CASES.DiffieHellman = [common.hasOpenSSL3 ? 1024 : 256];
 }
 

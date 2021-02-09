@@ -18,14 +18,15 @@ const kWrappingData = {
     wrap: { label: new Uint8Array(8) },
     pair: true
   },
-  'AES-CTR': {
-    generate: { length: 128 },
-    wrap: { counter: new Uint8Array(16), length: 64 },
-    pair: false
-  },
   'AES-CBC': {
     generate: { length: 128 },
     wrap: { iv: new Uint8Array(16) },
+    pair: false
+  },
+  /*
+  'AES-CTR': {
+    generate: { length: 128 },
+    wrap: { counter: new Uint8Array(16), length: 64 },
     pair: false
   },
   'AES-GCM': {
@@ -42,6 +43,7 @@ const kWrappingData = {
     wrap: { },
     pair: false
   }
+  */
 };
 
 function generateWrappingKeys() {

@@ -175,6 +175,7 @@ const { KeyObject } = require('crypto');
   })().then(common.mustCall());
 }
 
+/*
 // Test X25519 and X448 key derivation
 {
   async function test(name) {
@@ -209,3 +210,4 @@ const { KeyObject } = require('crypto');
   test('X25519').then(common.mustCall());
   test('X448').then(common.mustCall());
 }
+*/

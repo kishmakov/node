@@ -124,8 +124,6 @@ const algorithms = [
   ['sha256', '', 'salt', '', 10],
   ['sha512', 'secret', 'salt', '', 15],
 ];
-if (!common.hasOpenSSL3)
-  algorithms.push(['whirlpool', 'secret', '', 'info', 20]);
 
 algorithms.forEach(([ hash, secret, salt, info, length ]) => {
   {

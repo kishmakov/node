@@ -101,6 +101,7 @@ const { subtle } = globalThis.crypto;
   tests.then(common.mustCall());
 }
 
+/*
 // Test X25519 and X448 bit derivation
 {
   async function test(name) {
@@ -126,3 +127,4 @@ const { subtle } = globalThis.crypto;
   test('X25519').then(common.mustCall());
   test('X448').then(common.mustCall());
 }
+*/

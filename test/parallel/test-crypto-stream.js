@@ -76,10 +76,10 @@ cipher.pipe(decipher)
     library: 'Provider routines',
     reason: 'bad decrypt',
   } : {
-    message: /bad decrypt/,
-    function: 'EVP_DecryptFinal_ex',
-    library: 'digital envelope routines',
-    reason: 'bad decrypt',
+    message: /bad decrypt|BAD_DECRYPT/,
+    function: /EVP_DecryptFinal_ex|OPENSSL_internal/,
+    library: /digital envelope routines|Cipher functions/,
+    reason: /bad decrypt|BAD_DECRYPT/,
   }));
 
 cipher.end('Papaya!');  // Should not cause an unhandled exception.
