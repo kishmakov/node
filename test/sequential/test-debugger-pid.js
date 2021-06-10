@@ -20,6 +20,7 @@ const runTest = async () => {
     await cli.command('sb("alive.js", 3)');
     await cli.waitFor(/break/);
     await cli.waitForPrompt();
+    await new Promise(resolve => setTimeout(resolve, 1000));
     assert.match(
       cli.output,
       /> 3 {3}\+\+x;/,
