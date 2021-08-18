@@ -14,6 +14,13 @@
 #include <intrin.h>
 #include <stdbool.h>
 
+#if !defined(_ReadBarrier) || !defined(_WriteBarrier)
+
+#define _ReadBarrier() __asm__ __volatile__("" ::: "memory")
+#define _WriteBarrier() __asm__ __volatile__("" ::: "memory")
+
+#endif
+
 static void __inline * hdr_atomic_load_pointer(void** pointer)
 {
 	_ReadBarrier();
