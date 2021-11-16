@@ -1685,10 +1685,17 @@ int uv_os_uname(uv_utsname_t* buffer) {
     #ifdef _MSC_VER
     #pragma warning(suppress : 4996)
     #endif
+    #ifdef __clang__
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    #endif
     if (GetVersionExW(&os_info) == 0) {
       r = uv_translate_sys_error(GetLastError());
       goto error;
     }
+    #ifdef __clang__
+    #pragma clang diagnostic pop
+    #endif
   }
 
   /* Populate the version field. */
