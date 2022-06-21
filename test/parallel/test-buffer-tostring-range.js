@@ -103,6 +103,8 @@ assert.throws(() => {
 // Cannot test on 32bit machine as we are testing the case
 // when start and end are above the threshold
 common.skipIf32Bits();
+/* Disabled due to incompatiblity with v8 memory cage
 const threshold = 0xFFFFFFFF;
 const largeBuffer = Buffer.alloc(threshold);
 largeBuffer.toString('utf8', threshold + 0xF, threshold + 0xFF);
+*/

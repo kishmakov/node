@@ -106,7 +106,7 @@ namespace {
 
 template <typename T>
 MaybeLocal<Object> ToBufferEndian(Environment* env, MaybeStackBuffer<T>* buf) {
-  MaybeLocal<Object> ret = Buffer::New(env, buf);
+  MaybeLocal<Object> ret = Buffer::Copy(env, reinterpret_cast<char*>(buf->out()), buf->length() * sizeof(T));
   if (ret.IsEmpty())
     return ret;
 
@@ -183,7 +183,7 @@ MaybeLocal<Object> TranscodeLatin1ToUcs2(Environment* env,
     return {};
   }
 
-  return Buffer::New(env, &destbuf);
+  return Buffer::Copy(env, reinterpret_cast<char*>(destbuf.out()), destbuf.length() * sizeof(UChar));
 }
 
 MaybeLocal<Object> TranscodeFromUcs2(Environment* env,
@@ -228,7 +228,7 @@ MaybeLocal<Object> TranscodeUcs2FromUtf8(Environment* env,
     return {};
   }
 
-  return Buffer::New(env, &destbuf);
+  return Buffer::Copy(env, reinterpret_cast<char*>(destbuf.out()), destbuf.length() * sizeof(UChar));
 }
 
 MaybeLocal<Object> TranscodeUtf8FromUcs2(Environment* env,
@@ -252,7 +252,7 @@ MaybeLocal<Object> TranscodeUtf8FromUcs2(Environment* env,
     return {};
   }
 
-  return Buffer::New(env, &destbuf);
+  return Buffer::Copy(env, reinterpret_cast<char*>(destbuf.out()), destbuf.length() * sizeof(char));
 }
 
 constexpr const char* EncodingName(const enum encoding encoding) {

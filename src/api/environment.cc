@@ -101,6 +101,14 @@ MaybeLocal<Value> PrepareStackTraceCallback(Local<Context> context,
   return result;
 }
 
+NodeArrayBufferAllocator::NodeArrayBufferAllocator() {
+  zero_fill_field_ = static_cast<uint32_t*>(allocator_->Allocate(sizeof(*zero_fill_field_)));
+}
+
+NodeArrayBufferAllocator::~NodeArrayBufferAllocator() {
+  allocator_->Free(zero_fill_field_, sizeof(*zero_fill_field_));
+}
+
 void* NodeArrayBufferAllocator::Allocate(size_t size) {
   void* ret;
   if (zero_fill_field_ || per_process::cli_options->zero_fill_all_buffers)
