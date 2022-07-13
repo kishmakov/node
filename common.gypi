@@ -86,6 +86,8 @@
     'v8_use_perfetto': 0,
     'tsan%': 0,
 
+    'using_electron_config_gypi%': 0,
+
     ##### end V8 defaults #####
 
     # When building native modules using 'npm install' with the system npm,
@@ -285,6 +287,7 @@
     # Defines these mostly for node-gyp to pickup.
     'defines': [
       '_GLIBCXX_USE_CXX11_ABI=1',
+      'ELECTRON_ENSURE_CONFIG_GYPI',
     ],
 
     # Forcibly disable -Werror.  We support a wide range of compilers, it's
@@ -412,6 +415,11 @@
           ['_type!="static_library"', {
             'xcode_settings': {'OTHER_LDFLAGS': ['-fsanitize=undefined']},
           }],
+        ],
+      }],
+      ['using_electron_config_gypi == 1', {
+        'defines': [
+          'USING_ELECTRON_CONFIG_GYPI',
         ],
       }],
       # The defines bellow must include all things from the external_v8_defines

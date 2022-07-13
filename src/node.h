@@ -22,6 +22,12 @@
 #ifndef SRC_NODE_H_
 #define SRC_NODE_H_
 
+#ifdef ELECTRON_ENSURE_CONFIG_GYPI
+#ifndef USING_ELECTRON_CONFIG_GYPI
+#error "It looks like you are building this native module without using the right config.gypi.  This normally means that you need to update electron-rebuild (>=3.2.8) or node-gyp (>=9.0.0) if you're building modules directly."
+#endif
+#endif
+
 #ifdef _WIN32
 # ifndef BUILDING_NODE_EXTENSION
 #  define NODE_EXTERN __declspec(dllexport)
