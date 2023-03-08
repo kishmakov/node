@@ -752,7 +752,7 @@ MaybeLocal<Module> ModuleWrap::ResolveModuleCallback(
   return module->module_.Get(isolate);
 }
 
-static MaybeLocal<Promise> ImportModuleDynamically(
+MaybeLocal<Promise> ImportModuleDynamically(
     Local<Context> context,
     Local<v8::Data> host_defined_options,
     Local<Value> resource_name,
@@ -817,12 +817,13 @@ void ModuleWrap::SetImportModuleDynamicallyCallback(
   Realm* realm = Realm::GetCurrent(args);
   HandleScope handle_scope(isolate);
 
-  CHECK_EQ(args.Length(), 1);
+  CHECK_EQ(args.Length(), 2);
   CHECK(args[0]->IsFunction());
   Local<Function> import_callback = args[0].As<Function>();
   realm->set_host_import_module_dynamically_callback(import_callback);
 
-  isolate->SetHostImportModuleDynamicallyCallback(ImportModuleDynamically);
+  if (args[1]->IsBoolean() && args[1]->BooleanValue(isolate))
+    isolate->SetHostImportModuleDynamicallyCallback(ImportModuleDynamically);
 }
 
 void ModuleWrap::HostInitializeImportMetaObjectCallback(
@@ -864,13 +865,14 @@ void ModuleWrap::SetInitializeImportMetaObjectCallback(
   Realm* realm = Realm::GetCurrent(args);
   Isolate* isolate = realm->isolate();
 
-  CHECK_EQ(args.Length(), 1);
+  CHECK_EQ(args.Length(), 2);
   CHECK(args[0]->IsFunction());
   Local<Function> import_meta_callback = args[0].As<Function>();
   realm->set_host_initialize_import_meta_object_callback(import_meta_callback);
 
-  isolate->SetHostInitializeImportMetaObjectCallback(
-      HostInitializeImportMetaObjectCallback);
+  if (args[1]->IsBoolean() && args[1]->BooleanValue(isolate))
+    isolate->SetHostInitializeImportMetaObjectCallback(
+        HostInitializeImportMetaObjectCallback);
 }
 
 MaybeLocal<Value> ModuleWrap::SyntheticModuleEvaluationStepsCallback(
