@@ -86,13 +86,6 @@ class BindingData : public SnapshotableObject {
   SERIALIZABLE_OBJECT_METHODS()
   SET_BINDING_ID(fs_binding_data)
 
-  static void LegacyMainResolve(
-      const v8::FunctionCallbackInfo<v8::Value>& args);
-
-  static void CreatePerIsolateProperties(IsolateData* isolate_data,
-                                         v8::Local<v8::ObjectTemplate> ctor);
-  static void RegisterExternalReferences(ExternalReferenceRegistry* registry);
-
   void MemoryInfo(MemoryTracker* tracker) const override;
   SET_SELF_SIZE(BindingData)
   SET_MEMORY_INFO_NAME(BindingData)
