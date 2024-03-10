@@ -186,7 +186,9 @@ void ModuleWrap::New(const FunctionCallbackInfo<Value>& args) {
         export_names[i] = export_name_val.As<String>();
       }
 
-      module = Module::CreateSyntheticModule(isolate, url, export_names,
+
+      module = Module::CreateSyntheticModule(isolate, url,
+        v8::MemorySpan<const Local<String>>(export_names.begin(), export_names.end()),
         SyntheticModuleEvaluationStepsCallback);
     } else {
       ScriptCompiler::CachedData* cached_data = nullptr;
