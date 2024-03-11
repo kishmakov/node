@@ -587,11 +587,10 @@ void ModuleWrap::EvaluateSync(const FunctionCallbackInfo<Value>& args) {
 
   if (module->IsGraphAsync()) {
     CHECK(env->options()->print_required_tla);
-    auto stalled = module->GetStalledTopLevelAwaitMessage(isolate);
-    if (stalled.size() != 0) {
-      for (auto pair : stalled) {
-        Local<v8::Message> message = std::get<1>(pair);
-
+    auto stalled_messages =
+        std::get<1>(module->GetStalledTopLevelAwaitMessages(isolate));
+    if (stalled_messages.size() != 0) {
+      for (auto& message : stalled_messages) {
         std::string reason = "Error: unexpected top-level await at ";
         std::string info =
             FormatErrorMessage(isolate, context, "", message, true);
