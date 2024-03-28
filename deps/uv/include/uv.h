@@ -155,7 +155,6 @@ struct uv__queue {
   XX(EFTYPE, "inappropriate file type or format")                             \
   XX(EILSEQ, "illegal byte sequence")                                         \
   XX(ESOCKTNOSUPPORT, "socket type not supported")                            \
-  XX(ENODATA, "no data available")                                            \
   XX(EUNATCH, "protocol driver not attached")                                 \
 
 #define UV_HANDLE_TYPE_MAP(XX)                                                \

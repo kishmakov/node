@@ -241,10 +241,6 @@ void DefineErrnoConstants(Local<Object> target) {
   NODE_DEFINE_CONSTANT(target, ENOBUFS);
 #endif
 
-#ifdef ENODATA
-  NODE_DEFINE_CONSTANT(target, ENODATA);
-#endif
-
 #ifdef ENODEV
   NODE_DEFINE_CONSTANT(target, ENODEV);
 #endif
@@ -279,14 +275,6 @@ void DefineErrnoConstants(Local<Object> target) {
 
 #ifdef ENOSPC
   NODE_DEFINE_CONSTANT(target, ENOSPC);
-#endif
-
-#ifdef ENOSR
-  NODE_DEFINE_CONSTANT(target, ENOSR);
-#endif
-
-#ifdef ENOSTR
-  NODE_DEFINE_CONSTANT(target, ENOSTR);
 #endif
 
 #ifdef ENOSYS
@@ -367,10 +355,6 @@ void DefineErrnoConstants(Local<Object> target) {
 
 #ifdef ESTALE
   NODE_DEFINE_CONSTANT(target, ESTALE);
-#endif
-
-#ifdef ETIME
-  NODE_DEFINE_CONSTANT(target, ETIME);
 #endif
 
 #ifdef ETIMEDOUT

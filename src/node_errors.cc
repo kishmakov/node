@@ -855,10 +855,6 @@ const char* errno_string(int errorno) {
     ERRNO_CASE(ENOBUFS);
 #endif
 
-#ifdef ENODATA
-    ERRNO_CASE(ENODATA);
-#endif
-
 #ifdef ENODEV
     ERRNO_CASE(ENODEV);
 #endif
@@ -895,14 +891,6 @@ const char* errno_string(int errorno) {
 
 #ifdef ENOSPC
     ERRNO_CASE(ENOSPC);
-#endif
-
-#ifdef ENOSR
-    ERRNO_CASE(ENOSR);
-#endif
-
-#ifdef ENOSTR
-    ERRNO_CASE(ENOSTR);
 #endif
 
 #ifdef ENOSYS
@@ -985,10 +973,6 @@ const char* errno_string(int errorno) {
 
 #ifdef ESTALE
     ERRNO_CASE(ESTALE);
-#endif
-
-#ifdef ETIME
-    ERRNO_CASE(ETIME);
 #endif
 
 #ifdef ETIMEDOUT
