@@ -20,7 +20,9 @@ class NodeTraceWriter : public AsyncTraceWriter {
   ~NodeTraceWriter() override;
 
   void InitializeOnThread(uv_loop_t* loop) override;
+#ifndef V8_USE_PERFETTO
   void AppendTraceEvent(TraceObject* trace_event) override;
+#endif
   void Flush(bool blocking) override;
 
   static const int kTracesPerFile = 1 << 19;

@@ -55,6 +55,7 @@ TraceObject* InternalTraceBuffer::GetEventByHandle(uint64_t handle) {
 }
 
 void InternalTraceBuffer::Flush(bool blocking) {
+#ifndef V8_USE_PERFETTO
   {
     Mutex::ScopedLock scoped_lock(mutex_);
     if (total_chunks_ > 0) {
@@ -75,6 +76,7 @@ void InternalTraceBuffer::Flush(bool blocking) {
       flushing_ = false;
     }
   }
+#endif
   agent_->Flush(blocking);
 }
 

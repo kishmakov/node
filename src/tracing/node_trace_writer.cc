@@ -95,7 +95,7 @@ void NodeTraceWriter::OpenNewFileForStreaming() {
     fd_ = -1;
   }
 }
-
+#ifndef V8_USE_PERFETTO
 void NodeTraceWriter::AppendTraceEvent(TraceObject* trace_event) {
   Mutex::ScopedLock scoped_lock(stream_mutex_);
   // If this is the first trace event, open a new file for streaming.
@@ -112,7 +112,7 @@ void NodeTraceWriter::AppendTraceEvent(TraceObject* trace_event) {
   ++total_traces_;
   json_trace_writer_->AppendTraceEvent(trace_event);
 }
-
+#endif
 void NodeTraceWriter::FlushPrivate() {
   std::string str;
   int highest_request_id;
