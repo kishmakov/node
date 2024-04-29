@@ -59,18 +59,21 @@ class PerIsolatePlatformData :
   ~PerIsolatePlatformData() override;
 
   std::shared_ptr<v8::TaskRunner> GetForegroundTaskRunner() override;
-  void PostTask(std::unique_ptr<v8::Task> task) override;
-  void PostIdleTask(std::unique_ptr<v8::IdleTask> task) override;
-  void PostDelayedTask(std::unique_ptr<v8::Task> task,
-                       double delay_in_seconds) override;
+  void PostTaskImpl(std::unique_ptr<v8::Task> task, const v8::SourceLocation&) override;
+  void PostIdleTaskImpl(std::unique_ptr<v8::IdleTask> task, const v8::SourceLocation&) override;
+  void PostDelayedTaskImpl(std::unique_ptr<v8::Task> task,
+                          double delay_in_seconds,
+                          const v8::SourceLocation&) override;
   bool IdleTasksEnabled() override { return false; }
 
   // Non-nestable tasks are treated like regular tasks.
   bool NonNestableTasksEnabled() const override { return true; }
   bool NonNestableDelayedTasksEnabled() const override { return true; }
-  void PostNonNestableTask(std::unique_ptr<v8::Task> task) override;
-  void PostNonNestableDelayedTask(std::unique_ptr<v8::Task> task,
-                                  double delay_in_seconds) override;
+  void PostNonNestableTaskImpl(std::unique_ptr<v8::Task> task,
+                               const v8::SourceLocation&) override;
+  void PostNonNestableDelayedTaskImpl(std::unique_ptr<v8::Task> task,
+                                      double delay_in_seconds,
+                                      const v8::SourceLocation&) override;
 
   void AddShutdownCallback(void (*callback)(void*), void* data);
   void Shutdown();
