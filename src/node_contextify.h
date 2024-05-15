@@ -99,7 +99,6 @@ class ContextifyContext : public BaseObject {
       v8::Local<v8::Symbol> id_symbol,
       const errors::TryCatchScope& try_catch);
   static v8::ScriptCompiler::Source GetCommonJSSourceInstance(
-      v8::Isolate* isolate,
       v8::Local<v8::String> code,
       v8::Local<v8::String> filename,
       int line_offset,

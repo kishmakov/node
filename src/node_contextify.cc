@@ -877,16 +877,15 @@ void ContextifyScript::New(const FunctionCallbackInfo<Value>& args) {
   host_defined_options->Set(
       isolate, loader::HostDefinedOptions::kID, id_symbol);
 
-  ScriptOrigin origin(isolate,
-                      filename,
-                      line_offset,                          // line offset
-                      column_offset,                        // column offset
-                      true,                                 // is cross origin
-                      -1,                                   // script id
-                      Local<Value>(),                       // source map URL
-                      false,                                // is opaque (?)
-                      false,                                // is WASM
-                      false,                                // is ES Module
+  ScriptOrigin origin(filename,
+                      line_offset,     // line offset
+                      column_offset,   // column offset
+                      true,            // is cross origin
+                      -1,              // script id
+                      Local<Value>(),  // source map URL
+                      false,           // is opaque (?)
+                      false,           // is WASM
+                      false,           // is ES Module
                       host_defined_options);
   ScriptCompiler::Source source(code, origin, cached_data);
   ScriptCompiler::CompileOptions compile_options =
@@ -998,7 +997,7 @@ MaybeLocal<Function> CompileFunction(Local<Context> context,
                                      Local<String> filename,
                                      Local<String> content,
                                      std::vector<Local<String>>* parameters) {
-  ScriptOrigin script_origin(context->GetIsolate(), filename, 0, 0, true);
+  ScriptOrigin script_origin(filename, 0, 0, true);
   ScriptCompiler::Source script_source(content, script_origin);
 
   return ScriptCompiler::CompileFunction(context,
@@ -1108,7 +1107,6 @@ bool ContextifyScript::EvalMachine(Local<Context> context,
   }
 
   TryCatchScope try_catch(env);
-  Isolate::SafeForTerminationScope safe_for_termination(env->isolate());
   ContextifyScript* wrapped_script;
   ASSIGN_OR_RETURN_UNWRAP(&wrapped_script, args.This(), false);
   Local<UnboundScript> unbound_script =
@@ -1286,8 +1284,7 @@ void ContextifyContext::CompileFunction(
   Local<PrimitiveArray> host_defined_options =
       GetHostDefinedOptions(isolate, id_symbol);
   ScriptCompiler::Source source =
-      GetCommonJSSourceInstance(isolate,
-                                code,
+      GetCommonJSSourceInstance(code,
                                 filename,
                                 line_offset,
                                 column_offset,
@@ -1342,15 +1339,13 @@ void ContextifyContext::CompileFunction(
 }
 
 ScriptCompiler::Source ContextifyContext::GetCommonJSSourceInstance(
-    Isolate* isolate,
     Local<String> code,
     Local<String> filename,
     int line_offset,
     int column_offset,
     Local<PrimitiveArray> host_defined_options,
     ScriptCompiler::CachedData* cached_data) {
-  ScriptOrigin origin(isolate,
-                      filename,
+  ScriptOrigin origin(filename,
                       line_offset,     // line offset
                       column_offset,   // column offset
                       true,            // is cross origin
@@ -1528,7 +1523,7 @@ void ContextifyContext::ContainsModuleSyntax(
   Local<PrimitiveArray> host_defined_options =
       GetHostDefinedOptions(isolate, id_symbol);
   ScriptCompiler::Source source = GetCommonJSSourceInstance(
-      isolate, code, filename, 0, 0, host_defined_options, nullptr);
+      code, filename, 0, 0, host_defined_options, nullptr);
   ScriptCompiler::CompileOptions options = GetCompileOptions(source);
 
   std::vector<Local<String>> params = GetCJSParameters(env->isolate_data());
@@ -1576,7 +1571,7 @@ void ContextifyContext::ContainsModuleSyntax(
               code,
               String::NewFromUtf8(isolate, "})();").ToLocalChecked());
           ScriptCompiler::Source wrapped_source = GetCommonJSSourceInstance(
-              isolate, code, filename, 0, 0, host_defined_options, nullptr);
+              code, filename, 0, 0, host_defined_options, nullptr);
           std::ignore = ScriptCompiler::CompileFunction(
               context,
               &wrapped_source,
@@ -1629,8 +1624,7 @@ static void CompileFunctionForCJSLoader(
 
   Local<Symbol> symbol = env->vm_dynamic_import_default_internal();
   Local<PrimitiveArray> hdo = GetHostDefinedOptions(isolate, symbol);
-  ScriptOrigin origin(isolate,
-                      filename,
+  ScriptOrigin origin(filename,
                       0,               // line offset
                       0,               // column offset
                       true,            // is cross origin

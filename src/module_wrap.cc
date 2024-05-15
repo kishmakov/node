@@ -202,8 +202,7 @@ void ModuleWrap::New(const FunctionCallbackInfo<Value>& args) {
       }
 
       Local<String> source_text = args[2].As<String>();
-      ScriptOrigin origin(isolate,
-                          url,
+      ScriptOrigin origin(url,
                           line_offset,
                           column_offset,
                           true,                             // is cross origin
@@ -464,7 +463,6 @@ void ModuleWrap::Evaluate(const FunctionCallbackInfo<Value>& args) {
 
   ShouldNotAbortOnUncaughtScope no_abort_scope(realm->env());
   TryCatchScope try_catch(realm->env());
-  Isolate::SafeForTerminationScope safe_for_termination(isolate);
 
   bool timed_out = false;
   bool received_signal = false;
