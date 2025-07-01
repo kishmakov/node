@@ -108,7 +108,8 @@ class Worker : public AsyncWrap {
   void UpdateResourceConstraints(v8::ResourceConstraints* constraints);
 
   // Full size of the thread's stack.
-  size_t stack_size_ = 4 * 1024 * 1024;
+  // size_t stack_size_ = 4 * 1024 * 1024;
+  size_t stack_size_ = 1 * 1024 * 1024;
   // Stack buffer size that is not available to the JS engine.
   static constexpr size_t kStackBufferSize = 192 * 1024;
 
