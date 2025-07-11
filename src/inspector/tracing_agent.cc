@@ -87,9 +87,9 @@ class InspectorTraceWriter : public node::tracing::AsyncTraceWriter {
 
   void AppendTraceEvent(
       v8::platform::tracing::TraceObject* trace_event) override {
-    if (!json_writer_)
-      json_writer_.reset(TraceWriter::CreateJSONTraceWriter(stream_, "value"));
-    json_writer_->AppendTraceEvent(trace_event);
+    // if (!json_writer_)
+    //   json_writer_.reset(TraceWriter::CreateJSONTraceWriter(stream_, "value"));
+    // json_writer_->AppendTraceEvent(trace_event);
   }
 
   void Flush(bool) override {

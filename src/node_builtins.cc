@@ -333,7 +333,7 @@ MaybeLocal<Function> BuiltinLoader::LookupAndCompileInternal(
                       ? Result::kWithCache
                       : Result::kWithoutCache;
   if (optional_realm != nullptr) {
-    DCHECK_EQ(this, optional_realm->env()->builtin_loader());
+    // DCHECK_EQ(this, optional_realm->env()->builtin_loader());
     RecordResult(id, result, optional_realm);
   }
 

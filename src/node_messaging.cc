@@ -849,6 +849,28 @@ void MessagePort::OnMessage(MessageProcessingMode mode) {
     argv[1] = port_list;
     argv[2] = env()->message_string();
 
+    // {
+    //   std::ofstream log_file("/home/kishmakov/on_message.txt", std::ios::app);
+    //   auto isolate = env()->isolate();
+    //   v8::Local<v8::Object> global = context->Global();
+    //   v8::Local<v8::Object> JSON = global->Get(context, v8::String::NewFromUtf8Literal(isolate, "JSON"))
+    //                               .ToLocalChecked()->ToObject(context).ToLocalChecked();
+    //   v8::Local<v8::Function> stringify = JSON->Get(context, v8::String::NewFromUtf8Literal(isolate, "stringify"))
+    //                                       .ToLocalChecked().As<v8::Function>();
+    //
+    //   for (int i = 0; i < 3; i++) {
+    //     v8::Local<v8::Value> args[] = { argv[i] };
+    //     v8::Local<v8::Value> result;
+    //
+    //     if (stringify->Call(context, JSON, 1, args).ToLocal(&result)) {
+    //       v8::String::Utf8Value utf8(isolate, result);
+    //       log_file << "i = " << i << " v = " << *utf8 << std::endl;
+    //     }
+    //   }
+    //
+    //   log_file.close();
+    // }
+
     if (MakeCallback(emit_message, arraysize(argv), argv).IsEmpty()) {
     reschedule:
       if (!message_error.IsEmpty()) {
