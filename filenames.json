@@ -436,6 +436,7 @@
     "lib/internal/webstreams/util.js",
     "lib/internal/webstreams/writablestream.js",
     "lib/internal/worker.js",
+    "lib/internal/worker/extension.js",
     "lib/internal/worker/io.js",
     "lib/internal/worker/js_transferable.js",
     "lib/module.js",
