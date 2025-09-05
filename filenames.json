@@ -439,6 +439,7 @@
     "lib/internal/worker/extension.js",
     "lib/internal/worker/io.js",
     "lib/internal/worker/js_transferable.js",
+    "lib/internal/worker/state.js",
     "lib/internal/worker/utils.js",
     "lib/module.js",
     "lib/net.js",
