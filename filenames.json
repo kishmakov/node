@@ -439,6 +439,7 @@
     "lib/internal/worker/cache.js",
     "lib/internal/worker/context.js",
     "lib/internal/worker/common.js",
+    "lib/internal/worker/communication.js",
     "lib/internal/worker/extension.js",
     "lib/internal/worker/io.js",
     "lib/internal/worker/js_transferable.js",
