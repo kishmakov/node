@@ -436,7 +436,6 @@
     "lib/internal/webstreams/util.js",
     "lib/internal/webstreams/writablestream.js",
     "lib/internal/worker.js",
-    "lib/internal/worker/cache.js",
     "lib/internal/worker/context.js",
     "lib/internal/worker/common.js",
     "lib/internal/worker/communication.js",
