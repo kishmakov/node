@@ -443,6 +443,7 @@
     "lib/internal/worker/io.js",
     "lib/internal/worker/js_transferable.js",
     "lib/internal/worker/serialization.js",
+    "lib/internal/worker/setup.js",
     "lib/module.js",
     "lib/net.js",
     "lib/os.js",
