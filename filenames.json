@@ -444,6 +444,7 @@
     "lib/internal/worker/js_transferable.js",
     "lib/internal/worker/proxy.js",
     "lib/internal/worker/serialization.js",
+    "lib/internal/worker/serialization_json.js",
     "lib/internal/worker/setup.js",
     "lib/module.js",
     "lib/net.js",
